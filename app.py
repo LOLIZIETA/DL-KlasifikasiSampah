@@ -7,12 +7,12 @@ import os
 # Load model
 @st.cache_resource
 def load_garbage_model():
-    model = load_model('Model_KlasifikasiSampah.h5')
+    model = load_model('Model_KlasifikasiSampah.h5')  
     return model
 
 model = load_garbage_model()
 
-# Kelas dan label mapping
+# Mapping label
 label_mapping = {
     "battery": "Baterai",
     "biological": "Sampah Biologis",
@@ -49,34 +49,36 @@ deskripsi_sampah = {
 class_names = list(label_mapping.keys())
 
 # UI Streamlit
-st.title("♻️ Deteksi Jenis Sampah Organik Dan Non Organik")
-st.write("Upload gambar sampah untuk mendeteksi jenisnya dan dapatkan informasi detail.")
+st.title("♻️ Deteksi Jenis Sampah Organik dan Non-Organik")
+st.write("Upload gambar sampah untuk mengetahui jenisnya beserta informasi tambahan.")
 
 uploaded_file = st.file_uploader("Unggah gambar sampah...", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
-    # Tampilkan gambar yang diupload
+    # Tampilkan gambar
     st.image(uploaded_file, caption="Gambar yang Diunggah", use_column_width=True)
 
-    # Proses gambar
-    img = image.load_img(uploaded_file, target_size=(224, 224))
+    # Proses gambar (HARUS sesuai input model: 300x300)
+    img = image.load_img(uploaded_file, target_size=(300, 300)) 
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0) / 255.0
 
+    # Prediksi
     predictions = model.predict(img_array)
     predicted_index = np.argmax(predictions)
     predicted_prob = np.max(predictions)
 
-    THRESHOLD = 0.7
+    # Batas minimum probabilitas
+    THRESHOLD = 0.65
 
     if predicted_prob < THRESHOLD:
-        st.warning("🔍 Gambar tidak dikenali dalam dataset.")
+        st.warning("🔍 Gambar tidak dikenali dalam dataset pelatihan.")
     else:
         kelas_inggris = class_names[predicted_index]
         kelas_indonesia = label_mapping.get(kelas_inggris, "Tidak Diketahui")
         kategori = "Organik" if kelas_indonesia in kategori_organik else "Non-Organik"
-        deskripsi = deskripsi_sampah.get(kelas_indonesia, "Tidak ada deskripsi.")
+        deskripsi = deskripsi_sampah.get(kelas_indonesia, "Tidak ada deskripsi tambahan.")
 
-        st.success(f"✅ Prediksi: **{kelas_indonesia}** (Prob: {predicted_prob:.2f})")
+        st.success(f"✅ Prediksi: **{kelas_indonesia}** (Probabilitas: {predicted_prob:.2f})")
         st.info(f"🗑️ Kategori: {kategori}")
         st.markdown(f"📄 **Deskripsi:** {deskripsi}")
