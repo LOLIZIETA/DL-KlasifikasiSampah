@@ -7,7 +7,7 @@ import os
 # Load model
 @st.cache_resource
 def load_garbage_model():
-    model = load_model('model_garbage_classification.h5')
+    model = load_model('Model_KlasifikasiSampah.h5')
     return model
 
 model = load_garbage_model()
