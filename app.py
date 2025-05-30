@@ -8,7 +8,7 @@ from tensorflow.keras.preprocessing import image
 # Fungsi untuk load model
 @st.cache_resource
 def load_garbage_model():
-    model = load_model('model_classification_sampah.h5')
+    model = load_model('model_garbage_classification_28_Mei.h5')
     return model
 
 model = load_garbage_model()
