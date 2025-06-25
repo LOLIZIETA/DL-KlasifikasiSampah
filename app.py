@@ -58,7 +58,7 @@ if page == "Beranda":
     st.markdown("<h1 style='text-align: center; color: green;'>♻️ Website Deteksi Sampah</h1>", unsafe_allow_html=True)
     st.markdown("### Selamat datang!")
     st.write("Website ini membantu kamu mengenali jenis sampah dari gambar dan memberi informasi penting seperti:")
-    st.markdown("- ✅ Jenis sampah (organik / non-organik)")
+    st.markdown("- ✅ Jenis sampah (organik / anorganik)")
     st.markdown("- 📄 Penjelasan kategori sampah")
     st.markdown("- 🧠 Edukasi singkat tentang daur ulang")
     st.image("https://media.istockphoto.com/id/1200963979/id/vektor/ilustrasi-vektor-konsep-daur-ulang-desain-modern-datar-untuk-halaman-web-spanduk-presentasi.jpg?s=612x612&w=0&k=20&c=l8xOrP-TCcQnNeUaixJ04yEGaqyLXMn9aDhHL9hG5JI=", caption="Buanglah sampah pada tempat nya", use_container_width=True)
@@ -72,11 +72,11 @@ if page == "Beranda":
     with col3:
         st.image("https://mmc.tirto.id/image/2019/02/04/ilustrasi-baterai-istockphoto_ratio-16x9.jpg", caption="Baterai")
 
-    with st.expander("❓ Apa itu sampah organik dan non-organik?"):
+    with st.expander("❓ Apa itu sampah organik dan Anorganik?"):
         st.write("""
         **Sampah organik** adalah sampah yang berasal dari makhluk hidup dan bisa terurai secara alami, seperti daun, sisa makanan, atau kertas.
         
-        **Sampah non-organik** berasal dari benda tak hidup dan sulit terurai, seperti plastik, kaca, logam, dan baterai.
+        **Sampah Anorganik** berasal dari benda tak hidup dan sulit terurai, seperti plastik, kaca, logam, dan baterai.
         """)
 
 # Halaman Prediksi
@@ -107,7 +107,7 @@ elif page == "Prediksi Sampah":
             else:
                 kelas_inggris = class_names[predicted_index]
                 kelas_indonesia = label_mapping.get(kelas_inggris, "Tidak Diketahui")
-                kategori = "Organik" if kelas_indonesia in kategori_organik else "Non-Organik"
+                kategori = "Organik" if kelas_indonesia in kategori_organik else "Anorganik"
                 deskripsi = deskripsi_sampah.get(kelas_indonesia, "Tidak ada deskripsi.")
 
                 st.success(f"✅ Prediksi: **{kelas_indonesia}** (Prob: {predicted_prob:.2f})")
@@ -123,7 +123,7 @@ elif page == "Tentang":
     st.write("""
     Website ini menggunakan model deep learning berbasis Convolutional Neural Network (CNN) untuk mengenali jenis sampah dari gambar.
     
-    Model telah dilatih menggunakan dataset dari berbagai kategori sampah, baik organik maupun non-organik.
+    Model telah dilatih menggunakan dataset dari berbagai kategori sampah, baik organik maupun Anorganik.
     
     **Tujuan**:
     - Meningkatkan kesadaran memilah sampah
