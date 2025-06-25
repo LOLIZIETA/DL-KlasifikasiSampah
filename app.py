@@ -57,7 +57,7 @@ page = st.sidebar.radio("Pilih Halaman", ["Beranda", "Prediksi Sampah", "Tentang
 if page == "Beranda":
     st.markdown("<h1 style='text-align: center; color: green;'>♻️ Website Deteksi Sampah</h1>", unsafe_allow_html=True)
     st.markdown("### Selamat datang!")
-    st.write("Website ini membantu kamu mengenali jenis sampah dari gambar dan memberi informasi penting seperti:")
+    st.write("Website ini bisa digunakan untuk mengenali jenis sampah dari gambar dan memberi informasi penting seperti:")
     st.markdown("- ✅ Jenis sampah (organik / anorganik)")
     st.markdown("- 📄 Penjelasan kategori sampah")
     st.markdown("- 🧠 Edukasi singkat tentang daur ulang")
