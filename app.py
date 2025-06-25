@@ -61,7 +61,7 @@ if page == "Beranda":
     st.markdown("- ✅ Jenis sampah (organik / non-organik)")
     st.markdown("- 📄 Penjelasan kategori sampah")
     st.markdown("- 🧠 Edukasi singkat tentang daur ulang")
-    st.image("https://media.istockphoto.com/id/1200963979/id/vektor/ilustrasi-vektor-konsep-daur-ulang-desain-modern-datar-untuk-halaman-web-spanduk-presentasi.jpg?s=612x612&w=0&k=20&c=l8xOrP-TCcQnNeUaixJ04yEGaqyLXMn9aDhHL9hG5JI=", caption="Ilustrasi Sampah", use_container_width=True)
+    st.image("https://media.istockphoto.com/id/1200963979/id/vektor/ilustrasi-vektor-konsep-daur-ulang-desain-modern-datar-untuk-halaman-web-spanduk-presentasi.jpg?s=612x612&w=0&k=20&c=l8xOrP-TCcQnNeUaixJ04yEGaqyLXMn9aDhHL9hG5JI=", caption="Buanglah sampah pada tempat nya", use_container_width=True)
 
     st.markdown("### 📷 Contoh Gambar")
     col1, col2, col3 = st.columns(3)
