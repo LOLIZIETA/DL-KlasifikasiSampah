@@ -103,7 +103,7 @@ elif page == "Prediksi Sampah":
             THRESHOLD = 0.7
 
             if predicted_prob < THRESHOLD:
-                st.warning("🔍 Gambar tidak dikenali dalam dataset.")
+                st.warning("🔍 Gambar tidak dikenali.")
             else:
                 kelas_inggris = class_names[predicted_index]
                 kelas_indonesia = label_mapping.get(kelas_inggris, "Tidak Diketahui")
