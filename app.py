@@ -1,13 +1,9 @@
 import streamlit as st
 import numpy as np
-import base64
 from PIL import Image
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
-
-# --- Inisialisasi session_state untuk navigasi ---
-if "page" not in st.session_state:
-    st.session_state.page = "Beranda"
+from streamlit_option_menu import option_menu  
 
 # --- Load model dengan cache ---
 @st.cache_resource
@@ -53,21 +49,17 @@ deskripsi_sampah = {
 
 class_names = list(label_mapping.keys())
 
-# --- Sidebar Navigasi Tombol ---
-st.sidebar.title("📌 Navigasi")
-
-if st.sidebar.button("Beranda"):
-    st.session_state.page = "Beranda"
-if st.sidebar.button("Prediksi Sampah"):
-    st.session_state.page = "Prediksi Sampah"
-if st.sidebar.button("Tentang"):
-    st.session_state.page = "Tentang"
-
-# Ambil halaman aktif dari session state
-page = st.session_state.page
+# --- Navigasi Horizontal Pakai Option Menu ---
+selected = option_menu(
+    menu_title=None,
+    options=["Beranda", "Prediksi Sampah", "Tentang"],
+    icons=["house", "camera", "info-circle"],
+    orientation="horizontal",
+    default_index=0,
+)
 
 # --- Halaman Beranda ---
-if page == "Beranda":
+if selected == "Beranda":
     st.markdown("<h1 style='text-align: center; color: green;'>♻️ Website Deteksi Sampah</h1>", unsafe_allow_html=True)
     st.markdown("### Selamat datang!")
     st.write("Website ini bisa digunakan untuk mengenali jenis sampah dari gambar dan memberi informasi penting seperti:")
@@ -93,7 +85,7 @@ if page == "Beranda":
         """)
 
 # --- Halaman Prediksi ---
-elif page == "Prediksi Sampah":
+elif selected == "Prediksi Sampah":
     st.markdown("## 🧪 Deteksi Jenis Sampah dari Gambar")
     st.write("Upload gambar sampah untuk mengetahui jenis dan penjelasannya.")
 
@@ -130,7 +122,7 @@ elif page == "Prediksi Sampah":
             st.error(f"Terjadi kesalahan saat memproses gambar: {e}")
 
 # --- Halaman Tentang ---
-elif page == "Tentang":
+elif selected == "Tentang":
     st.markdown("## ℹ️ Tentang Website")
     st.write("""
     Website ini menggunakan model deep learning berbasis Convolutional Neural Network (CNN) untuk mengenali jenis sampah dari gambar.
