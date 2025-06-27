@@ -72,7 +72,7 @@ if page == "Beranda":
     with col3:
         st.image("https://mmc.tirto.id/image/2019/02/04/ilustrasi-baterai-istockphoto_ratio-16x9.jpg", caption="Baterai")
 
-    st.markdown("❓ Apa itu sampah organik dan Anorganik?")
+    st.markdown("### ❓ Apa itu sampah organik dan Anorganik?")
     st.write("""
         **Sampah organik** adalah sampah yang berasal dari makhluk hidup dan bisa terurai secara alami, seperti daun, sisa makanan, atau kertas.
         
