@@ -1,13 +1,8 @@
 import streamlit as st
 import numpy as np
-import base64
 from PIL import Image
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
-
-# --- Inisialisasi session_state untuk navigasi ---
-if "page" not in st.session_state:
-    st.session_state.page = "Beranda"
 
 # --- Load model dengan cache ---
 @st.cache_resource
@@ -53,18 +48,13 @@ deskripsi_sampah = {
 
 class_names = list(label_mapping.keys())
 
-# --- Sidebar Navigasi Tombol ---
-st.sidebar.title("📌 Navigasi")
-
-if st.sidebar.button("Beranda"):
-    st.session_state.page = "Beranda"
-if st.sidebar.button("Prediksi Sampah"):
-    st.session_state.page = "Prediksi Sampah"
-if st.sidebar.button("Tentang"):
-    st.session_state.page = "Tentang"
-
-# Ambil halaman aktif dari session state
-page = st.session_state.page
+# --- Navigasi Horizontal di Atas ---
+st.markdown("## 📌 Navigasi")
+page = st.radio(
+    "Pilih Halaman",
+    ["Beranda", "Prediksi Sampah", "Tentang"],
+    horizontal=True
+)
 
 # --- Halaman Beranda ---
 if page == "Beranda":
