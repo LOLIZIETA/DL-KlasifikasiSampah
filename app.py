@@ -5,7 +5,11 @@ from PIL import Image
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 
-# Fungsi untuk load model
+# --- Inisialisasi session_state untuk navigasi ---
+if "page" not in st.session_state:
+    st.session_state.page = "Beranda"
+
+# --- Load model dengan cache ---
 @st.cache_resource
 def load_garbage_model():
     model = load_model('model_garbage_classification_28_Mei.h5')
@@ -13,7 +17,7 @@ def load_garbage_model():
 
 model = load_garbage_model()
 
-# Label dan deskripsi
+# --- Label dan deskripsi ---
 label_mapping = {
     "battery": "Baterai",
     "biological": "Sampah Biologis",
@@ -49,11 +53,20 @@ deskripsi_sampah = {
 
 class_names = list(label_mapping.keys())
 
-# Navigasi Sidebar
+# --- Sidebar Navigasi Tombol ---
 st.sidebar.title("📌 Navigasi")
-page = st.sidebar.selectbox("Pilih Halaman", ["Beranda", "Prediksi Sampah", "Tentang"])
 
-# Halaman Beranda
+if st.sidebar.button("Beranda"):
+    st.session_state.page = "Beranda"
+if st.sidebar.button("Prediksi Sampah"):
+    st.session_state.page = "Prediksi Sampah"
+if st.sidebar.button("Tentang"):
+    st.session_state.page = "Tentang"
+
+# Ambil halaman aktif dari session state
+page = st.session_state.page
+
+# --- Halaman Beranda ---
 if page == "Beranda":
     st.markdown("<h1 style='text-align: center; color: green;'>♻️ Website Deteksi Sampah</h1>", unsafe_allow_html=True)
     st.markdown("### Selamat datang!")
@@ -79,7 +92,7 @@ if page == "Beranda":
         **Sampah Anorganik** berasal dari benda tak hidup dan sulit terurai, seperti plastik, kaca, logam, dan baterai.
         """)
 
-# Halaman Prediksi
+# --- Halaman Prediksi ---
 elif page == "Prediksi Sampah":
     st.markdown("## 🧪 Deteksi Jenis Sampah dari Gambar")
     st.write("Upload gambar sampah untuk mengetahui jenis dan penjelasannya.")
@@ -87,7 +100,6 @@ elif page == "Prediksi Sampah":
     uploaded_file = st.file_uploader("Unggah gambar sampah...", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
-        # Gunakan PIL
         image_pil = Image.open(uploaded_file)
         st.image(image_pil, caption="Gambar yang Diunggah", use_container_width=True)
 
@@ -117,7 +129,7 @@ elif page == "Prediksi Sampah":
         except Exception as e:
             st.error(f"Terjadi kesalahan saat memproses gambar: {e}")
 
-# Halaman Tentang
+# --- Halaman Tentang ---
 elif page == "Tentang":
     st.markdown("## ℹ️ Tentang Website")
     st.write("""
@@ -133,6 +145,6 @@ elif page == "Tentang":
     st.markdown("📚 Dataset: [Kaggle - Garbage Classification](https://www.kaggle.com/datasets/mostafaabla/garbage-classification)")
     st.markdown("🧑‍💻 Dibuat oleh: **Anugerah Bakti Prasisto**")
 
-# Footer
+# --- Footer ---
 st.markdown("---")
 st.markdown("<center>© 2025 - Website Deteksi Sampah oleh Anugerah Bakti Prasisto</center>", unsafe_allow_html=True)
