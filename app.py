@@ -73,7 +73,7 @@ if page == "Beranda":
         st.image("https://mmc.tirto.id/image/2019/02/04/ilustrasi-baterai-istockphoto_ratio-16x9.jpg", caption="Baterai")
 
     st.markdown("❓ Apa itu sampah organik dan Anorganik?")
-        st.write("""
+    st.write("""
         **Sampah organik** adalah sampah yang berasal dari makhluk hidup dan bisa terurai secara alami, seperti daun, sisa makanan, atau kertas.
         
         **Sampah Anorganik** berasal dari benda tak hidup dan sulit terurai, seperti plastik, kaca, logam, dan baterai.
