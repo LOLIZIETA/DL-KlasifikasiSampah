@@ -1,11 +1,11 @@
 import streamlit as st
 import numpy as np
+import base64
 from PIL import Image
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
-from streamlit_option_menu import option_menu  
 
-# --- Load model dengan cache ---
+# Fungsi untuk load model
 @st.cache_resource
 def load_garbage_model():
     model = load_model('model_garbage_classification_28_Mei.h5')
@@ -13,7 +13,7 @@ def load_garbage_model():
 
 model = load_garbage_model()
 
-# --- Label dan deskripsi ---
+# Label dan deskripsi
 label_mapping = {
     "battery": "Baterai",
     "biological": "Sampah Biologis",
@@ -49,17 +49,12 @@ deskripsi_sampah = {
 
 class_names = list(label_mapping.keys())
 
-# --- Navigasi Horizontal Pakai Option Menu ---
-selected = option_menu(
-    menu_title=None,
-    options=["Beranda", "Prediksi Sampah", "Tentang"],
-    icons=["house", "camera", "info-circle"],
-    orientation="horizontal",
-    default_index=0,
-)
+# Navigasi Sidebar
+st.sidebar.title("📌 Navigasi")
+page = st.sidebar.radio("Pilih Halaman", ["Beranda", "Prediksi Sampah", "Tentang"])
 
-# --- Halaman Beranda ---
-if selected == "Beranda":
+# Halaman Beranda
+if page == "Beranda":
     st.markdown("<h1 style='text-align: center; color: green;'>♻️ Website Deteksi Sampah</h1>", unsafe_allow_html=True)
     st.markdown("### Selamat datang!")
     st.write("Website ini bisa digunakan untuk mengenali jenis sampah dari gambar dan memberi informasi penting seperti:")
@@ -84,14 +79,15 @@ if selected == "Beranda":
         **Sampah Anorganik** berasal dari benda tak hidup dan sulit terurai, seperti plastik, kaca, logam, dan baterai.
         """)
 
-# --- Halaman Prediksi ---
-elif selected == "Prediksi Sampah":
+# Halaman Prediksi
+elif page == "Prediksi Sampah":
     st.markdown("## 🧪 Deteksi Jenis Sampah dari Gambar")
     st.write("Upload gambar sampah untuk mengetahui jenis dan penjelasannya.")
 
     uploaded_file = st.file_uploader("Unggah gambar sampah...", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
+        # Gunakan PIL
         image_pil = Image.open(uploaded_file)
         st.image(image_pil, caption="Gambar yang Diunggah", use_container_width=True)
 
@@ -121,8 +117,8 @@ elif selected == "Prediksi Sampah":
         except Exception as e:
             st.error(f"Terjadi kesalahan saat memproses gambar: {e}")
 
-# --- Halaman Tentang ---
-elif selected == "Tentang":
+# Halaman Tentang
+elif page == "Tentang":
     st.markdown("## ℹ️ Tentang Website")
     st.write("""
     Website ini menggunakan model deep learning berbasis Convolutional Neural Network (CNN) untuk mengenali jenis sampah dari gambar.
@@ -137,6 +133,6 @@ elif selected == "Tentang":
     st.markdown("📚 Dataset: [Kaggle - Garbage Classification](https://www.kaggle.com/datasets/mostafaabla/garbage-classification)")
     st.markdown("🧑‍💻 Dibuat oleh: **Anugerah Bakti Prasisto**")
 
-# --- Footer ---
+# Footer
 st.markdown("---")
 st.markdown("<center>© 2025 - Website Deteksi Sampah oleh Anugerah Bakti Prasisto</center>", unsafe_allow_html=True)
