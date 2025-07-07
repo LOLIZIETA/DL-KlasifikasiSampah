@@ -130,7 +130,6 @@ elif page == "Tentang":
     - Membantu masyarakat dalam edukasi daur ulang
     - Mengurangi pencemaran dengan pemilahan yang benar
     """)
-    st.markdown("📚 Dataset: [Kaggle - Garbage Classification](https://www.kaggle.com/datasets/mostafaabla/garbage-classification)")
     st.markdown("🧑‍💻 Dibuat oleh: **Anugerah Bakti Prasisto**")
 
 # Footer
