@@ -78,6 +78,12 @@ if page == "Beranda":
         
         **Sampah Anorganik** berasal dari benda tak hidup dan sulit terurai, seperti plastik, kaca, logam, dan baterai.
         """)
+    
+    # video YouTube
+    st.markdown("---")
+    st.markdown("### 🎬 Video Panduan Menggunakan Prediksi Sampah")
+    st.write("Tonton video berikut untuk memahami cara menggunakan fitur prediksi sampah pada website ini.")
+    st.video("https://youtu.be/lWr8yTJ439s?si=7VTHj3eIxdof-fIR")
 
 # Halaman Prediksi
 elif page == "Prediksi Sampah":
