@@ -1,6 +1,5 @@
 import streamlit as st
 import numpy as np
-import base64
 from PIL import Image
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
@@ -33,18 +32,18 @@ kategori_organik = ["Sampah Biologis", "Kertas", "Kardus"]
 kategori_non_organik = ["Baterai", "Kaca Coklat", "Kaca Hijau", "Kaca Putih", "Plastik", "Logam", "Kain/Pakaian", "Sepatu", "Sampah Campuran"]
 
 deskripsi_sampah = {
-    "Baterai": "Mengandung bahan kimia berbahaya dan harus dibuang di tempat khusus.",
-    "Sampah Biologis": "Sampah organik seperti sisa makanan, daun, dan bahan alami lainnya.",
-    "Kaca Coklat": "Jenis kaca yang biasanya digunakan untuk botol bir atau minuman lainnya.",
-    "Kardus": "Bahan daur ulang yang umum digunakan untuk kemasan dan harus dibuang ke tempat daur ulang.",
-    "Kain/Pakaian": "Bisa didaur ulang atau disumbangkan jika masih layak pakai.",
-    "Kaca Hijau": "Biasanya digunakan untuk botol kaca hijau seperti botol minuman.",
-    "Logam": "Bisa didaur ulang menjadi berbagai produk baru seperti kaleng atau bagian kendaraan.",
-    "Kertas": "Dapat didaur ulang menjadi kertas baru atau produk berbasis kertas lainnya.",
-    "Plastik": "Bisa didaur ulang, tetapi butuh waktu lama untuk terurai di lingkungan.",
-    "Sepatu": "Biasanya terbuat dari campuran bahan yang sulit didaur ulang, bisa disumbangkan jika masih layak pakai.",
-    "Sampah Campuran": "Sampah yang tidak dapat dikategorikan ke dalam kelompok spesifik.",
-    "Kaca Putih": "Kaca bening yang sering digunakan dalam kemasan makanan dan minuman."
+    "Baterai": "Baterai bekas tergolong limbah B3 (bahan berbahaya dan beracun). Mengandung logam berat seperti merkuri, timbal, dan kadmium yang dapat mencemari lingkungan jika dibuang sembarangan. Harus dibuang di tempat penampungan limbah elektronik.",
+    "Sampah Biologis": "Termasuk sisa makanan, daun kering, atau bahan alami lainnya. Sampah ini mudah terurai dan cocok untuk dijadikan kompos guna menyuburkan tanah.",
+    "Kaca Coklat": "Kaca ini sering digunakan sebagai botol minuman (seperti bir). Daur ulang kaca coklat membantu mengurangi konsumsi energi dan bahan baku dari alam.",
+    "Kardus": "Merupakan bahan kemasan yang umum digunakan. Kardus dapat didaur ulang menjadi kertas baru. Harus dijaga tetap kering agar tidak rusak.",
+    "Kain/Pakaian": "Pakaian lama dapat didaur ulang menjadi produk baru seperti kain pel, atau disumbangkan untuk yang membutuhkan. Jangan langsung dibuang jika masih layak pakai.",
+    "Kaca Hijau": "Umumnya ditemukan sebagai botol minuman. Seperti jenis kaca lainnya, kaca hijau bisa didaur ulang tanpa kehilangan kualitasnya.",
+    "Logam": "Sampah logam seperti kaleng atau besi bisa dilebur dan dibentuk ulang menjadi alat baru. Daur ulang logam menghemat energi dan sumber daya alam.",
+    "Kertas": "Kertas bekas bisa didaur ulang menjadi tisu, karton, atau kertas cetak ulang. Namun, pastikan tidak tercampur dengan minyak atau makanan agar tetap bisa didaur ulang.",
+    "Plastik": "Plastik sangat sulit terurai dan menjadi ancaman besar bagi lingkungan. Daur ulang plastik dapat mengurangi limbah dan menjaga laut dari pencemaran.",
+    "Sepatu": "Sampah sepatu biasanya terdiri dari campuran karet, kain, dan lem. Jika masih layak pakai, lebih baik disumbangkan. Daur ulang sepatu lebih kompleks namun tetap memungkinkan.",
+    "Sampah Campuran": "Merupakan kombinasi dari beberapa jenis sampah atau jenis yang tidak dapat dikategorikan. Biasanya sulit untuk dipilah atau didaur ulang secara efisien.",
+    "Kaca Putih": "Kaca bening seperti botol atau wadah makanan. Mudah didaur ulang dan bisa diproses menjadi produk kaca baru yang setara kualitasnya."
 }
 
 class_names = list(label_mapping.keys())
@@ -61,7 +60,7 @@ if page == "Beranda":
     st.markdown("- ✅ Jenis sampah (organik / anorganik)")
     st.markdown("- 📄 Penjelasan kategori sampah")
     st.markdown("- 🧠 Edukasi singkat tentang daur ulang")
-    st.image("https://media.istockphoto.com/id/1200963979/id/vektor/ilustrasi-vektor-konsep-daur-ulang-desain-modern-datar-untuk-halaman-web-spanduk-presentasi.jpg?s=612x612&w=0&k=20&c=l8xOrP-TCcQnNeUaixJ04yEGaqyLXMn9aDhHL9hG5JI=", caption="Buanglah sampah pada tempat nya", use_container_width=True)
+    st.image("https://media.istockphoto.com/id/1200963979/id/vektor/ilustrasi-vektor-konsep-daur-ulang-desain-modern-datar-untuk-halaman-web-spanduk-presentasi.jpg?s=612x612&w=0&k=20&c=l8xOrP-TCcQnNeUaixJ04yEGaqyLXMn9aDhHL9hG5JI=", caption="Buanglah sampah pada tempatnya", use_container_width=True)
 
     st.markdown("### 📷 Contoh Gambar")
     col1, col2, col3 = st.columns(3)
@@ -75,11 +74,10 @@ if page == "Beranda":
     st.markdown("### ❓ Apa itu sampah organik dan Anorganik?")
     st.write("""
         **Sampah organik** adalah sampah yang berasal dari makhluk hidup dan bisa terurai secara alami, seperti daun, sisa makanan, atau kertas.
-        
+
         **Sampah Anorganik** berasal dari benda tak hidup dan sulit terurai, seperti plastik, kaca, logam, dan baterai.
         """)
-    
-    # video YouTube
+
     st.markdown("---")
     st.markdown("### 🎬 Video Panduan Menggunakan Prediksi Sampah")
     st.write("Tonton video berikut untuk memahami cara menggunakan fitur prediksi sampah pada website ini.")
@@ -93,7 +91,6 @@ elif page == "Prediksi Sampah":
     uploaded_file = st.file_uploader("Unggah gambar sampah...", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
-        # Gunakan PIL
         image_pil = Image.open(uploaded_file)
         st.image(image_pil, caption="Gambar yang Diunggah", use_container_width=True)
 
@@ -105,6 +102,7 @@ elif page == "Prediksi Sampah":
             predictions = model.predict(img_array)
             predicted_index = np.argmax(predictions)
             predicted_prob = np.max(predictions)
+            persentase = predicted_prob * 100
 
             THRESHOLD = 0.7
 
@@ -116,7 +114,7 @@ elif page == "Prediksi Sampah":
                 kategori = "Organik" if kelas_indonesia in kategori_organik else "Anorganik"
                 deskripsi = deskripsi_sampah.get(kelas_indonesia, "Tidak ada deskripsi.")
 
-                st.success(f"✅ Prediksi: **{kelas_indonesia}** (Prob: {predicted_prob:.2f})")
+                st.success(f"✅ Prediksi: **{kelas_indonesia}** ({persentase:.2f}%)")
                 st.info(f"🗑️ Kategori: {kategori}")
                 st.markdown(f"📄 **Deskripsi:** {deskripsi}")
 
@@ -128,9 +126,9 @@ elif page == "Tentang":
     st.markdown("## ℹ️ Tentang Website")
     st.write("""
     Website ini menggunakan model deep learning berbasis Convolutional Neural Network (CNN) untuk mengenali jenis sampah dari gambar.
-    
+
     Model telah dilatih menggunakan dataset dari berbagai kategori sampah, baik organik maupun Anorganik.
-    
+
     **Tujuan**:
     - Meningkatkan kesadaran memilah sampah
     - Membantu masyarakat dalam edukasi daur ulang
