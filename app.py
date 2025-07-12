@@ -84,8 +84,8 @@ if page == "Beranda":
     st.video("https://youtu.be/lWr8yTJ439s?si=7VTHj3eIxdof-fIR")
 
 # Halaman Prediksi
-elif page == "Prediksi Sampah":
-    st.markdown("## 🧪 Deteksi Jenis Sampah dari Gambar")
+elif page == "Klasifikasi Sampah":
+    st.markdown("## 🧪 Klasifikasi Jenis Sampah Berdasarkan Gambar")
     st.write("Upload gambar sampah untuk mengetahui jenis dan penjelasannya.")
 
     uploaded_file = st.file_uploader("Unggah gambar sampah...", type=["jpg", "jpeg", "png"])
@@ -114,7 +114,7 @@ elif page == "Prediksi Sampah":
                 kategori = "Organik" if kelas_indonesia in kategori_organik else "Anorganik"
                 deskripsi = deskripsi_sampah.get(kelas_indonesia, "Tidak ada deskripsi.")
 
-                st.success(f"✅ Prediksi: **{kelas_indonesia}** ({persentase:.2f}%)")
+                st.success(f"✅ Jenis Sampah: **{kelas_indonesia}** ({persentase:.2f}%)")
                 st.info(f"🗑️ Kategori: {kategori}")
                 st.markdown(f"📄 **Deskripsi:** {deskripsi}")
 
