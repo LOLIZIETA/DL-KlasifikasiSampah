@@ -50,7 +50,7 @@ class_names = list(label_mapping.keys())
 
 # Navigasi Sidebar
 st.sidebar.title("📌 Navigasi")
-page = st.sidebar.radio("Pilih Halaman", ["Beranda", "Prediksi Sampah", "Tentang"])
+page = st.sidebar.radio("Pilih Halaman", ["Beranda", "Klasifikasi Sampah", "Tentang"])
 
 # Halaman Beranda
 if page == "Beranda":
