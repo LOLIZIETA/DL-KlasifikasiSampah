@@ -107,7 +107,9 @@ elif page == "Klasifikasi Sampah":
             THRESHOLD = 0.7
 
             if predicted_prob < THRESHOLD:
-                st.warning("🔍 Gambar tidak dikenali.")
+                st.warning("🔍 Gambar tidak dikenali. Pastikan gambar menampilkan satu jenis sampah dengan jelas dan memiliki kualitas yang baik.")
+                st.info("📌 Tips: Gunakan gambar dengan pencahayaan yang cukup dan latar belakang yang bersih.")
+                st.markdown("🤔 Gambar Anda tidak dikenali? Anda bisa memberi masukan ke kami agar model terus ditingkatkan.")
             else:
                 kelas_inggris = class_names[predicted_index]
                 kelas_indonesia = label_mapping.get(kelas_inggris, "Tidak Diketahui")
